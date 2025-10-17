@@ -7,6 +7,7 @@ public class Principal {
         meuFilme.setNome("O Poderoso Chefão");
         meuFilme.setAnoDeLancamento(1970);
         meuFilme.setDuracaoEmMinutos(180);
+        System.out.println("Duração do filme: " + meuFilme.getDuracaoEmMinutos() + " minutos.");
 
         meuFilme.exibeFichaTecnica();
         meuFilme.avalia(8);
@@ -15,12 +16,16 @@ public class Principal {
         System.out.println("Total de avaliações: " + meuFilme.getTotalDeAvaliacoes());
         System.out.println(meuFilme.pegaMedia());
 
+        System.out.println("====================================================");
+
         Serie lost = new Serie();
         lost.setNome("Lost");
         lost.setAnoDeLancamento(2000);
         lost.exibeFichaTecnica();
         lost.setTemporadas(7);
-        lost.setEspisodiosPorTemporada(10);
+        lost.setEpisodiosPorTemporada(10);
         lost.setAtiva(false);
+        lost.setMinutosPorEpisodio(50);
+        System.out.println("Duração para maratonar Lost: " + lost.getDuracaoEmMinutos() + " minutos.");
     }
 }
