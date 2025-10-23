@@ -14,6 +14,10 @@ public class Audio {
         this.titulo = titulo;
     }
 
+    public String getTitulo() {
+        return titulo;
+    }
+
     public int getTotaldeCurtidas() {
         return totaldeCurtidas;
     }

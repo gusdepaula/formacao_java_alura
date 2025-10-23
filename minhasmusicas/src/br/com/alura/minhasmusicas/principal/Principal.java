@@ -1,12 +1,13 @@
 package br.com.alura.minhasmusicas.principal;
 
+import br.com.alura.minhasmusicas.modelos.MinhasPreferidas;
 import br.com.alura.minhasmusicas.modelos.Musica;
 import br.com.alura.minhasmusicas.modelos.Podcast;
 
 public class Principal {
     public static void main(String[] args) {
         System.out.println("Bem-vindo ao seu app de músicas!");
-        Musica minhaMusica = new Musica();
+        Musica minhaMusica = new Musica("Here Comes Your Man");
         minhaMusica.setTitulo("Here Comes Your Man");
         minhaMusica.setArtista("Pixies");
         minhaMusica.setAlbum("Doolittle");
@@ -20,7 +21,7 @@ public class Principal {
           minhaMusica.curtir();
         }
 
-        Podcast meuPodcast = new Podcast();
+        Podcast meuPodcast = new Podcast("Bolha Dev");
         meuPodcast.setTitulo("Bolha Dev");
         meuPodcast.setHost("Marcus Mendes");
 
@@ -31,5 +32,9 @@ public class Principal {
         for (int i = 0; i < 1000; i++) {
             meuPodcast.curtir();
         }
+
+        MinhasPreferidas preferidas = new MinhasPreferidas();
+        preferidas.inclui(meuPodcast);
+        preferidas.inclui(minhaMusica);
     }
 }
