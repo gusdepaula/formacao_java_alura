@@ -41,6 +41,8 @@ public class PrincipalComBusca {
         } catch (NumberFormatException e) {
             System.out.println("Aconteceu um erro ao tentar converter os dados de duração ou ano de lançamento.");
             System.out.println(e.getMessage());
+        } catch (Exception) {
+            System.out.println("Ocorreu um erro inesperado: " + e.getMessage());
         }
     }
 }
