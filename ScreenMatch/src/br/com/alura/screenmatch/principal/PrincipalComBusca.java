@@ -1,5 +1,6 @@
 package br.com.alura.screenmatch.principal;
 
+import br.com.alura.screenmatch.excecao.ErroDeConversaoDeAnoException;
 import br.com.alura.screenmatch.modelos.Titulo;
 import br.com.alura.screenmatch.modelos.TituloOMDb;
 import com.google.gson.FieldNamingPolicy;
@@ -41,8 +42,8 @@ public class PrincipalComBusca {
         } catch (NumberFormatException e) {
             System.out.println("Aconteceu um erro ao tentar converter os dados de duração ou ano de lançamento.");
             System.out.println(e.getMessage());
-        } catch (Exception) {
-            System.out.println("Ocorreu um erro inesperado: " + e.getMessage());
+        } catch (ErroDeConversaoDeAnoException e) {
+            System.out.println(e.getMessage());
         }
     }
 }

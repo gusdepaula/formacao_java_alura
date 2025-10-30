@@ -1,11 +1,10 @@
 package br.com.alura.screenmatch.modelos;
 
+import br.com.alura.screenmatch.excecao.ErroDeConversaoDeAnoException;
 import com.google.gson.annotations.SerializedName;
 
 public class Titulo implements Comparable<Titulo> {
-    @SerializedName("Title")
     private String nome;
-    @SerializedName("Year")
     private int anoDeLancamento;
     private boolean incluidoNoPlano;
     private double somaAvaliacoes;
@@ -19,6 +18,12 @@ public class Titulo implements Comparable<Titulo> {
 
     public Titulo(TituloOMDb meuTituloOMDb) {
         this.nome = meuTituloOMDb.title();
+
+        if(meuTituloOMDb.year().length() > 4){
+            throw new ErroDeConversaoDeAnoException("Ano de lançamento com formato inválido: " + meuTituloOMDb.year());
+        } else {
+            Integer.valueOf(meuTituloOMDb.year().substring(0,4));
+        }
         this.anoDeLancamento = Integer.valueOf(meuTituloOMDb.year().substring(0,4));
         this.duracaoEmMinutos = Integer.valueOf(meuTituloOMDb.runtime().substring(0,3).trim());
     }
