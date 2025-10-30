@@ -33,8 +33,14 @@ public class PrincipalComBusca {
 
         TituloOMDb meuTituloOMDb = gson.fromJson(json, TituloOMDb.class);
 
-        System.out.println(meuTituloOMDb);
-        Titulo meuTitulo = new Titulo(meuTituloOMDb);
-        System.out.println(meuTitulo);
+        try {
+            Titulo meuTitulo = new Titulo(meuTituloOMDb);
+            System.out.println("Título: " + meuTitulo.getNome());
+            System.out.println("Ano de Lançamento: " + meuTitulo.getAnoDeLancamento());
+            System.out.println("Duração: " + meuTitulo.getDuracaoEmMinutos() + " minutos");
+        } catch (NumberFormatException e) {
+            System.out.println("Aconteceu um erro ao tentar converter os dados de duração ou ano de lançamento.");
+            System.out.println(e.getMessage());
+        }
     }
 }
