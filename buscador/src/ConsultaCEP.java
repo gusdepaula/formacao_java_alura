@@ -10,21 +10,15 @@ public class ConsultaCEP {
     public Endereco buscarEnderecoPorCEP(String cep) {
         URI enderecoAPI = URI.create("https://viacep.com.br/ws/" + cep + "/json/");
 
-        HttpClient client = HttpClient.newHttpClient();
         HttpRequest request = HttpRequest.newBuilder().uri(enderecoAPI).build();
 
-
-        HttpResponse<String> response = null;
         try {
-            response = java.net.http.HttpClient.newHttpClient()
+            HttpResponse<String> response = HttpClient.newHttpClient()
                     .send(request, HttpResponse.BodyHandlers.ofString());
+            return new Gson().fromJson(response.body(), Endereco.class);
         } catch (Exception e) {
-            throw new RuntimeException(e);
+            throw new RuntimeException("Erro ao buscar o CEP: " + e.getMessage());
         }
-
-
-        return new Gson().fromJson(response.body(), Endereco.class);
-
     }
 
 }
