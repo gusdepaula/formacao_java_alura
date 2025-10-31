@@ -7,6 +7,7 @@ import com.google.gson.FieldNamingPolicy;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
+import java.io.FileWriter;
 import java.io.IOException;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
@@ -39,6 +40,10 @@ public class PrincipalComBusca {
             System.out.println("Título: " + meuTitulo.getNome());
             System.out.println("Ano de Lançamento: " + meuTitulo.getAnoDeLancamento());
             System.out.println("Duração: " + meuTitulo.getDuracaoEmMinutos() + " minutos");
+
+            FileWriter escrita = new FileWriter("filmes.txt");
+            escrita.write(meuTitulo.toString());
+            escrita.close();
         } catch (NumberFormatException e) {
             System.out.println("Aconteceu um erro ao tentar converter os dados de duração ou ano de lançamento.");
             System.out.println(e.getMessage());
