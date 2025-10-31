@@ -12,43 +12,59 @@ import java.io.IOException;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class PrincipalComBusca {
     public static void main(String[] args) throws IOException, InterruptedException {
         Scanner leitura = new Scanner(System.in);
-        System.out.println("Digite um filme para busca: ");
-        var busca = leitura.nextLine();
-        String buscaFormatada = busca.replace(" ", "+");
-        String endereco = "https://www.omdbapi.com/?t=" + buscaFormatada + "&apikey=5f672b50";
+        String busca = "";
+        List<Titulo> titulos = new ArrayList<>();
+        Gson gson = new GsonBuilder().setFieldNamingPolicy(FieldNamingPolicy.UPPER_CAMEL_CASE).setPrettyPrinting().create();
 
-        HttpClient client = HttpClient.newHttpClient();
-        HttpRequest request = HttpRequest.newBuilder()
-                .uri(java.net.URI.create(endereco))
-                .build();
-        HttpResponse<String> response = client
-                .send(request, HttpResponse.BodyHandlers.ofString());
+        while (!busca.equalsIgnoreCase("sair")){
+            System.out.println("Digite um filme para busca: ");
+            busca = leitura.nextLine();
 
-        String json = response.body();
-        System.out.println(json);
-        Gson gson = new GsonBuilder().setFieldNamingPolicy(FieldNamingPolicy.UPPER_CAMEL_CASE).create();
+            if(busca.equalsIgnoreCase("sair")){
+                System.out.println("Encerrando o programa.");
+                break;
+            }
 
-        TituloOMDb meuTituloOMDb = gson.fromJson(json, TituloOMDb.class);
+            String buscaFormatada = busca.replace(" ", "+");
+            String endereco = "https://www.omdbapi.com/?t=" + buscaFormatada + "&apikey=5f672b50";
 
-        try {
-            Titulo meuTitulo = new Titulo(meuTituloOMDb);
-            System.out.println("Título: " + meuTitulo.getNome());
-            System.out.println("Ano de Lançamento: " + meuTitulo.getAnoDeLancamento());
-            System.out.println("Duração: " + meuTitulo.getDuracaoEmMinutos() + " minutos");
+            HttpClient client = HttpClient.newHttpClient();
+            HttpRequest request = HttpRequest.newBuilder()
+                    .uri(java.net.URI.create(endereco))
+                    .build();
+            HttpResponse<String> response = client
+                    .send(request, HttpResponse.BodyHandlers.ofString());
 
-            FileWriter escrita = new FileWriter("filmes.txt");
-            escrita.write(meuTitulo.toString());
-            escrita.close();
-        } catch (NumberFormatException e) {
-            System.out.println("Aconteceu um erro ao tentar converter os dados de duração ou ano de lançamento.");
-            System.out.println(e.getMessage());
-        } catch (ErroDeConversaoDeAnoException e) {
-            System.out.println(e.getMessage());
+            String json = response.body();
+            System.out.println(json);
+
+            TituloOMDb meuTituloOMDb = gson.fromJson(json, TituloOMDb.class);
+
+            try {
+                Titulo meuTitulo = new Titulo(meuTituloOMDb);
+                System.out.println("Título: " + meuTitulo.getNome());
+                System.out.println("Ano de Lançamento: " + meuTitulo.getAnoDeLancamento());
+                System.out.println("Duração: " + meuTitulo.getDuracaoEmMinutos() + " minutos");
+
+                titulos.add(meuTitulo);
+            } catch (NumberFormatException e) {
+                System.out.println("Aconteceu um erro ao tentar converter os dados de duração ou ano de lançamento.");
+                System.out.println(e.getMessage());
+            } catch (ErroDeConversaoDeAnoException e) {
+                System.out.println(e.getMessage());
+            }
         }
+        System.out.println("Titulos buscados: ");
+        FileWriter escrita = new FileWriter("filmes.json");
+        escrita.write(gson.toJson(titulos));
+        escrita.close();
+        System.out.println(titulos);
     }
 }
