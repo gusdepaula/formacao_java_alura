@@ -1,5 +1,6 @@
 package br.com.alura.screenmatch;
 
+import br.com.alura.screenmatch.service.ConsumoAPI;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -13,6 +14,8 @@ public class ScreenmatchApplication implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        System.out.println("Primeiro programa Spring Boot");
+        var consumoAPI = new ConsumoAPI();
+        var json = consumoAPI.obterDados("https://www.omdbapi.com/?t=lost&Season=1&apikey=5f672b50");
+        System.out.println(json);
     }
 }
