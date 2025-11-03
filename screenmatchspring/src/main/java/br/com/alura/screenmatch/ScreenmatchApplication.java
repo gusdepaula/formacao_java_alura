@@ -1,5 +1,6 @@
 package br.com.alura.screenmatch;
 
+import br.com.alura.screenmatch.model.DadosEpisodio;
 import br.com.alura.screenmatch.service.ConsumoAPI;
 import br.com.alura.screenmatch.service.ConverterDados;
 import br.com.alura.screenmatch.model.DadosSerie;
@@ -22,5 +23,8 @@ public class ScreenmatchApplication implements CommandLineRunner {
         ConverterDados conversor = new ConverterDados();
         DadosSerie dados = conversor.obterDados(json, DadosSerie.class);
         System.out.println(dados);
+        json = consumoAPI.obterDados("https://www.omdbapi.com/?t=lost&Season=1&Episode=1&apikey=5f672b50");
+        DadosEpisodio dadosEpisodio = conversor.obterDados(json, DadosEpisodio.class);
+        System.out.println(dadosEpisodio);
     }
 }
