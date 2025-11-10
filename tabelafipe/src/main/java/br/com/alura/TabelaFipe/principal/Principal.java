@@ -1,7 +1,12 @@
 package br.com.alura.TabelaFipe.principal;
 
+import br.com.alura.TabelaFipe.model.Dados;
+import br.com.alura.TabelaFipe.model.Modelos;
 import br.com.alura.TabelaFipe.service.ConsumoApi;
+import br.com.alura.TabelaFipe.service.ConverteDados;
+import com.fasterxml.jackson.core.JsonProcessingException;
 
+import java.util.Comparator;
 import java.util.Scanner;
 
 public class Principal {
@@ -9,8 +14,9 @@ public class Principal {
     private Scanner leitura = new Scanner(System.in);
     private final String URL_BASE = "https://parallelum.com.br/fipe/api/v1/";
     private ConsumoApi consumo = new ConsumoApi();
+    private ConverteDados conversor = new ConverteDados();
 
-    public void exibeMenu() {
+    public void exibeMenu() throws JsonProcessingException {
         var menu = """
                 === Tabela Fipe ===
                 Carro
@@ -35,5 +41,22 @@ public class Principal {
 
         var json = consumo.obterDados(endereco);
         System.out.println(json);
+
+        var marcas = conversor.obterLista(json, Dados.class);
+
+        marcas.stream().sorted(Comparator.comparing(Dados::codigo))
+                .forEach(System.out::println);
+
+        System.out.println("Informe o código da marca para consulta: ");
+        var codigoMarca = leitura.nextLine();
+
+        endereco = endereco + "/" + codigoMarca + "/modelos";
+        var jsonModelo = consumo.obterDados(endereco);
+        var modeloLista = conversor.obterDados(jsonModelo, Modelos.class);
+
+        System.out.println("Modelos disponíveis:");
+        modeloLista.modelos().stream()
+                .sorted(Comparator.comparing(Dados::nome))
+                .forEach(System.out::println);
     }
 }
