@@ -1,23 +1,15 @@
 package br.com.alura.screenmatch.model;
 
 public enum Categoria {
-    DRAMA("Drama"),
-    COMEDIA("Comedy"),
-    AVENTURA("Adventure"),
-    FICCAO_CIENTIFICA("Sci-Fi"),
-    FANTASIA("Fantasy"),
     ACAO("Action"),
-    TERROR("Horror"),
     ROMANCE("Romance"),
-    DOCUMENTARIO("Documentary"),
-    ANIMACAO("Animation"),
-    MUSICAL("Musical"),
-    SUSPENSE("Thriller"),
-    OUTRO("Other");
+    COMEDIA("Comedy"),
+    DRAMA("Drama"),
+    CRIME("Crime");
 
     private String categoriaOmdb;
 
-    Categoria(String categoriaOmdb) {
+    Categoria(String categoriaOmdb){
         this.categoriaOmdb = categoriaOmdb;
     }
 
@@ -27,6 +19,6 @@ public enum Categoria {
                 return categoria;
             }
         }
-        return OUTRO;
+        throw new IllegalArgumentException("Nenhuma categoria encontrada para a string fornecida: " + text);
     }
 }
