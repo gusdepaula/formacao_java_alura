@@ -5,7 +5,18 @@ public enum Categoria {
     ROMANCE("Romance"),
     COMEDIA("Comedy"),
     DRAMA("Drama"),
-    CRIME("Crime");
+    CRIME("Crime"),
+    AVENTURA("Adventure"),
+    FICCAO_CIENTIFICA("Sci-Fi"),
+    FANTASIA("Fantasy"),
+    TERROR("Horror"),
+    ANIMACAO("Animation"),
+    DOCUMENTARIO("Documentary"),
+    MUSICAL("Musical"),
+    GUERRA("War"),
+    WESTERN("Western"),
+    MISTERIO("Mystery"),
+    BIOGRAFIA("Biography");
 
     private String categoriaOmdb;
 
