@@ -31,7 +31,7 @@ public class Serie {
     private String atores;
     private String poster;
     private String sinopse;
-    @Transient
+    @OneToMany(mappedBy = "serie", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Episodio>  episodios = new ArrayList<>();
 
     public List<Episodio> getEpisodios() {
