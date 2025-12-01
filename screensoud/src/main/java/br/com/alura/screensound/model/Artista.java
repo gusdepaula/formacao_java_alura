@@ -8,6 +8,17 @@ import java.util.List;
 @Entity
 @Table(name = "artistas")
 public class Artista {
+
+    @OneToMany(mappedBy = "artista", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<Musica> musicas = new ArrayList<>();
+
+    public Artista(){}
+
+    public Artista(String nome, TipoArtista tipo) {
+        this.nome = nome;
+        this.tipo = tipo;
+    }
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -48,9 +59,6 @@ public class Artista {
 
     @Enumerated
     private TipoArtista tipo;
-
-    @OneToMany(mappedBy = "artista", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private List<Musica> musicas = new ArrayList<>();
 
     @Override
     public String toString() {
