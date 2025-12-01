@@ -14,7 +14,7 @@ public class Musica {
     @Override
     public String toString() {
         return "Música='" + titulo + '\'' +
-                ", artista=" + artista;
+                ", artista=" + artista.getNome();
     }
 
     public Artista getArtista() {
@@ -43,4 +43,10 @@ public class Musica {
 
     @ManyToOne
     private Artista artista;
+
+    public Musica(){}
+
+    public Musica(String titulo){
+        this.titulo = titulo;
+    }
 }
