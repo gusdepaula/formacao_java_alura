@@ -5,12 +5,27 @@ public enum Categoria {
     ROMANCE("Romance", "Romance"),
     COMEDIA("Comedy", "Comédia"),
     DRAMA("Drama", "Drama"),
-    CRIME("Crime", "Crime");
+    CRIME("Crime", "Crime"),
+    AVENTURA("Adventure", "Aventura"),
+    FICCAO_CIENTIFICA("Sci-Fi", "Ficção Científica"),
+    FANTASIA("Fantasy", "Fantasia"),
+    TERROR("Horror", "Terror"),
+    ANIMACAO("Animation", "Animação"),
+    SUSPENSE("Thriller", "Suspense"),
+    FAMILY("Family", "Família"),
+    HISTORICO("History", "Histórico"),
+    DOCUMENTARIO("Documentary", "Documentário"),
+    MUSICAL("Musical", "Musical"),
+    GUERRA("War", "Guerra"),
+    WESTERN("Western", "Faroeste"),
+    MISTERIO("Mystery", "Mistério"),
+    BIOGRAFIA("Biography", "Biografia");
 
     private String categoriaOmdb;
+
     private String categoriaPortugues;
 
-    Categoria(String categoriaOmdb, String categoriaPortugues){
+    Categoria(String categoriaOmdb, String categoriaPortugues) {
         this.categoriaOmdb = categoriaOmdb;
         this.categoriaPortugues = categoriaPortugues;
     }
