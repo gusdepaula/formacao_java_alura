@@ -29,13 +29,18 @@ public class SerieController {
     }
 
     @GetMapping("/lancamentos")
-    public List<SerieDTO> obterLancamentos(){
+    public List<SerieDTO> obterLancamentos() {
         return servico.obterLancamentos();
     }
 
     @GetMapping("/{id}")
     public SerieDTO obterPorId(@PathVariable Long id) {
-        return servico.obtePorId(id);
+        return servico.obterPorId(id);
+    }
+
+    @GetMapping("/{id}/temporadas/todas")
+    public List<EpisodioDTO> obterTodasTemporadas(@PathVariable Long id){
+        return servico.obterTodasTemporadas(id);
     }
 
     @GetMapping("/{id}/temporadas/{numero}")
@@ -43,4 +48,8 @@ public class SerieController {
         return servico.obterTemporadasPorNumero(id, numero);
     }
 
+    @GetMapping("/categoria/{nomeGenero}")
+    public List<SerieDTO> obterSeriesPorCategoria(@PathVariable String nomeGenero){
+        return servico.obterSeriesPorCategoria(nomeGenero);
+    }
 }
